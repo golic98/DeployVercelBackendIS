@@ -18,7 +18,4 @@ app.use("/meg", mainRouter);
 app.use("/meg", taskRoute);
 app.use("/meg", vigilantRoute);
 
-const PORT = process.env.PORT || 1200;
-app.listen(PORT, () => {
-    console.log("El servidor está trabajando en el puerto: " + PORT);
-});
+export default app;
