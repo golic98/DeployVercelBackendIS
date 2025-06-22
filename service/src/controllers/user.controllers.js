@@ -20,13 +20,7 @@ export const register = async (req, res) => {
   try {
     const { user, token } = await registerUser({ name, username, email, password, telephone, age, role });
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'None',
-      maxAge: 24 * 60 * 60 * 1000
-    });
-
+    res.cookie('token', token);
     res.status(201).json(user);
   } catch (error) {
     console.log("Error: No se pudo registrar usuario.", error.message);
@@ -38,14 +32,8 @@ export const login = async (req, res) => {
 
   try {
     const { token, user } = await authUser(username, password);
-
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'None',
-      maxAge: 24 * 60 * 60 * 1000
-    });
-
+    
+    res.cookie('token', token);
     res.json({
       id: user.id,
       name: user.name,
@@ -55,7 +43,7 @@ export const login = async (req, res) => {
       createdAt: user.createdAt,
       updatedAt: user.updatedAt
     });
-
+    
 
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -105,7 +93,7 @@ export const verifyToken = async (req, res) => {
       role: userFound.role,
       telephone: userFound.telephone,
       age: userFound.age
-    });
+  });
   });
 }
 
@@ -170,9 +158,9 @@ export const updatePassword = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const result = await changePassword(username, password);
-    return res.status(200).json(result);
+      const result = await changePassword(username, password);
+      return res.status(200).json(result);
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+      return res.status(400).json({ message: error.message });
   }
 };
