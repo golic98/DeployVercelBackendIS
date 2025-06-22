@@ -10,7 +10,8 @@ import {
   dropUser,
   selectUserProfile,
   updateUserProfile,
-  changePassword
+  changePassword,
+  registerUserByAdmin
 } from "../services/user.services.js";
 
 
@@ -188,7 +189,7 @@ export const createUserByAdmin = async (req, res) => {
   const { name, username, email, password, telephone, age, role } = req.body;
 
   try {
-    const { user, token } = await registerUser({ name, username, email, password, telephone, age, role });
+    const { user, token } = await registerUserByAdmin({ name, username, email, password, telephone, age, role });
 
     res.cookie('token', token, {
       httpOnly: true,

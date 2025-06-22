@@ -168,3 +168,31 @@ export const changePassword = async (username, newPassword) => {
         updatedAt: updatedUser.updatedAt
     };
 };
+
+export const registerUserByAdmin = async (userData) => {
+    const { username, password } = userData;
+
+    const userFound = await User.findOne({ username });
+
+    if (userFound) {
+        throw new Error("El usuario ya existe");
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const userSave = await createUser({ ...userData, password: passwordHash });
+    const token = await createAccessToken({ id: userSave._id });
+
+    return {
+        user: {
+            id: userSave._id,
+            name: userSave.name,
+            username: userSave.username,
+            email: userSave.email,
+            age: userSave.age,
+            role: userSave.role,
+            createAt: userSave.createdAt,
+            updateAt: userSave.updatedAt
+        },
+        token
+    };
+};
