@@ -183,3 +183,15 @@ export const updatePassword = async (req, res) => {
       return res.status(400).json({ message: error.message });
   }
 };
+
+export const createUserByAdmin = async (req, res) => {
+  const { name, username, email, password, telephone, age, role } = req.body;
+
+  try {
+    const { user } = await registerUser({ name, username, email, password, telephone, age, role });
+    return res.status(201).json(user);
+  } catch (error) {
+    console.log("Error al crear usuario como admin:", error.message);
+    return res.status(500).json({ message: "Error al crear usuario" });
+  }
+};
