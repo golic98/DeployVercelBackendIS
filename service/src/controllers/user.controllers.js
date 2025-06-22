@@ -20,7 +20,14 @@ export const register = async (req, res) => {
   try {
     const { user, token } = await registerUser({ name, username, email, password, telephone, age, role });
 
-    res.cookie('token', token);
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production', // en dev suele ser false
+      sameSite: 'none',  // necesario para cross-site
+      path: '/',         // que cubra todas las rutas de tu API
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+    
     res.status(201).json(user);
   } catch (error) {
     console.log("Error: No se pudo registrar usuario.", error.message);
