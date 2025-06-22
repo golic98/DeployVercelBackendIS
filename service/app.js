@@ -18,4 +18,4 @@ app.use("/meg", mainRouter);
 app.use("/meg", taskRoute);
 app.use("/meg", vigilantRoute);
 
-export default app;
+module.exports = app;
