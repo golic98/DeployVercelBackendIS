@@ -12,7 +12,6 @@ const app = express();
 connectiondb();
 
 const allowedOrigins = [
-  
   "https://client-vercel-pnc.vercel.app"
 ];
 
