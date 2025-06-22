@@ -13,7 +13,7 @@ connectiondb();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  "https://client-vercel-pnc.vercel.app/meg"
+  "https://client-vercel-pnc.vercel.app"
 ];
 
 app.use(cors({
