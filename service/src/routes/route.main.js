@@ -19,6 +19,5 @@ router.get("/profile/:id", authRequired, getOneProfile);
 router.put("/profile/:id", authRequired, updateProfile);
 router.post("/payVigilance", authRequired, addPayVigilance);
 router.get("/allPay", authRequired, getAllPay);
-router.post("/users", authRequired, createUserByAdmin);
 
 export default router;
