@@ -39,30 +39,31 @@ export const login = async (req, res) => {
 
   try {
     const { token, user } = await authUser(username, password);
-    
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', 
-      sameSite: 'none',  
-      path: '/',         
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',
+      path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
-    
-    res.json({
-      id: user.id,
-      name: user.name,
-      username: user.username,
-      email: user.email,
-      role: user.role,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt
-    });
-    
 
+    res.json({
+      user: {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+      },
+      token
+    });
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
 };
+
 
 export const logout = (req, res) => {
   res.clearCookie('token', {
