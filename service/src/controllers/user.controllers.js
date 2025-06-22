@@ -22,9 +22,9 @@ export const register = async (req, res) => {
 
     res.cookie('token', token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // en dev suele ser false
-      sameSite: 'none',  // necesario para cross-site
-      path: '/',         // que cubra todas las rutas de tu API
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',  
+      path: '/',         
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
     
@@ -188,10 +188,18 @@ export const createUserByAdmin = async (req, res) => {
   const { name, username, email, password, telephone, age, role } = req.body;
 
   try {
-    const { user } = await registerUser({ name, username, email, password, telephone, age, role });
-    return res.status(201).json(user);
+    const { user, token } = await registerUser({ name, username, email, password, telephone, age, role });
+
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',  
+      path: '/',         
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+    
+    res.status(201).json(user);
   } catch (error) {
-    console.log("Error al crear usuario como admin:", error.message);
-    return res.status(500).json({ message: "Error al crear usuario" });
+    console.log("Error: No se pudo registrar usuario.", error.message);
   }
 };
