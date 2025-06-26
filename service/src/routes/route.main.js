@@ -19,7 +19,7 @@ router.get("/profile/:id", authRequired, getOneProfile);
 router.put("/profile/:id", authRequired, updateProfile);
 router.post("/payVigilance", authRequired, addPayVigilance);
 router.get("/allPay", authRequired, getAllPay);
-router.post("/createUser", authRequired, createUserByAdmin);
+router.post("/createUser", validateSchema(registerSchema), authRequired, createUserByAdmin);
 
 
 export default router;
