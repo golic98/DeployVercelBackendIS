@@ -191,13 +191,7 @@ export const createUserByAdmin = async (req, res) => {
   try {
     const { user, token } = await registerUserByAdmin({ name, username, email, password, telephone, age, role });
 
-    res.cookie('token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'none',  
-      path: '/',         
-      maxAge: 7 * 24 * 60 * 60 * 1000
-    });
+    res.cookie('token', token);
     
     res.status(201).json(user);
   } catch (error) {
