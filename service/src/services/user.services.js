@@ -116,6 +116,7 @@ export const selectUsersNotFilter = async () => {
 
         return users.map(user => ({
             id: user._id,
+            name: user.name,
             username: user.username,
             email: user.email,
             createdAt: user.createdAt,
