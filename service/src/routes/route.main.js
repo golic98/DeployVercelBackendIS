@@ -20,7 +20,7 @@ router.put("/profile/:id", authRequired, updateProfile);
 router.post("/payVigilance", authRequired, addPayVigilance);
 router.get("/allPay", authRequired, getAllPay);
 router.post("/createUser", validateSchema(registerSchema), authRequired, createUserByAdmin);
-router.post("/updatePassword", updatePassword);
+router.put("/updatePassword", updatePassword);
 
 
 export default router;
