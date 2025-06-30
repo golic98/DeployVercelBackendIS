@@ -39,7 +39,12 @@ const swaggerSpec = swaggerJsdoc(swaggerOptions);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const PORT = process.env.PORT || 1200;
-app.listen(PORT, () => {
-    console.log("El servidor está trabajando en el puerto: " + PORT);
-    console.log("Documentación Swagger disponible en: http://localhost:" + PORT + "/api-docs");
-});
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 1200;
+  app.listen(PORT, () => {
+      console.log("El servidor está trabajando en el puerto: " + PORT);
+      console.log("Documentación Swagger disponible en: http://localhost:" + PORT + "/api-docs");
+  });
+}
+
+export default app;
