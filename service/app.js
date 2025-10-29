@@ -11,21 +11,6 @@ const app = express();
 
 connectiondb();
 
-const allowedOrigins = [
-  "https://proyecto-ingenieria-software.vercel.app"
-];
-
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true
-}));
-
 app.use(express.json());
 app.use(cookieParser());
 app.use("/api", mainRouter);
