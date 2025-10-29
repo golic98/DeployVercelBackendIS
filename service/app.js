@@ -12,7 +12,7 @@ const app = express();
 connectiondb();
 
 const allowedOrigins = [
-  "https://proyecto-ingenieria-software.vercel.app/"
+  "https://proyecto-ingenieria-software.vercel.app"
 ];
 
 app.use(cors({
