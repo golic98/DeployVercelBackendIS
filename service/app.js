@@ -12,7 +12,7 @@ const app = express();
 connectiondb();
 
 const allowedOrigins = [
-  "https://client-vercel-pnc.vercel.app"
+  "https://proyecto-ingenieria-software.vercel.app/"
 ];
 
 app.use(cors({
@@ -28,9 +28,9 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
-app.use("/meg", mainRouter);
-app.use("/meg", taskRoute);
-app.use("/meg", vigilantRoute);
+app.use("/api", mainRouter);
+app.use("/api", taskRoute);
+app.use("/api", vigilantRoute);
 
 const PORT = process.env.PORT || 1200;
 app.listen(PORT, () => {
