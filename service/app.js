@@ -13,7 +13,7 @@ connectiondb();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: 'https://deploy-vercel-frontendt-is.vercel.app/', credentials: true }))
+app.use(cors({ origin: 'https://deploy-vercel-frontendt-is.vercel.app', credentials: true }))
 app.use("/api", mainRouter);
 app.use("/api", taskRoute);
 app.use("/api", vigilantRoute);
