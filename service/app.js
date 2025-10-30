@@ -4,7 +4,6 @@ import mainRouter from "./src/routes/route.main.js";
 import { connectiondb } from "./src/config/dbConnection.js";
 import cookieParser from "cookie-parser";
 import taskRoute from "./src/routes/route.task.js";
-import cors from "cors";
 import vigilantRoute from "./src/routes/route.vigilant.js";
 
 const app = express();
