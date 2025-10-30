@@ -13,12 +13,10 @@ connectiondb();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: 'https://deploy-vercel-frontendt-is.vercel.app', credentials: true }))
+app.use(cors({ origin: 'https://deploy-vercel-frontendt-is.vercel.app', credentials: true }));
+app.get("/", (req, res) => res.status(200).send("Bienvenido"));
 app.use("/api", mainRouter);
 app.use("/api", taskRoute);
 app.use("/api", vigilantRoute);
 
-const PORT = process.env.PORT || 1200;
-app.listen(PORT, () => {
-    console.log("El servidor está trabajando en el puerto: " + PORT);
-});
+export default app;
