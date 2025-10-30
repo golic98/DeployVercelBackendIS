@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-import { TOKEN_SECRET } from "../token/token.js";
+import "dotenv/config";
 import jwt from "jsonwebtoken";
 import {
   registerUser,
@@ -13,6 +13,8 @@ import {
   changePassword,
   registerUserByAdmin
 } from "../services/user.services.js";
+
+const TOKEN_SECRET = process.env.TOKEN_PRIVATE;
 
 
 export const register = async (req, res) => {
