@@ -11,14 +11,15 @@ const app = express();
 
 connectiondb();
 
-app.use(express.json());
-app.use(cookieParser());
 app.use(
     cors(
     { 
         origin: 'https://deploy-vercel-frontendt-is.vercel.app', 
-        credentials: true 
+        credentials: true
     }));
+app.use(express.json());
+app.use(cookieParser());
+
 app.get("/", (req, res) => res.status(200).send("Bienvenido a nuestro servidor."));
 app.use("/api", mainRouter);
 app.use("/api", taskRoute);
