@@ -13,10 +13,13 @@ connectiondb();
 
 app.use(
     cors(
-    { 
-        origin: 'https://deploy-vercel-frontendt-is.vercel.app', 
-        credentials: true
-    }));
+        {
+            origin: 'https://deploy-vercel-frontendt-is.vercel.app',
+            credentials: true,
+            methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+            allowedHeaders: ["Content-Type", "Authorization"],
+
+        }));
 app.use(express.json());
 app.use(cookieParser());
 
