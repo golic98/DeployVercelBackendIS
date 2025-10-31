@@ -26,11 +26,11 @@ export const register = async (req, res) => {
     res.cookie('token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'none',  
-      path: '/',         
+      sameSite: 'none',
+      path: '/',
       maxAge: 7 * 24 * 60 * 60 * 1000
     });
-    
+
     res.status(201).json(user);
   } catch (error) {
     console.log("Error: No se pudo registrar usuario.", error.message);
@@ -67,8 +67,8 @@ export const login = async (req, res) => {
   }
 };
 
-
 export const logout = (req, res) => {
+  console.log('Cookies recibidas en /logout ->', req.cookies);
   res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -77,7 +77,6 @@ export const logout = (req, res) => {
   });
   return res.sendStatus(200);
 };
-
 
 export const profile = async (req, res) => {
   try {
@@ -115,7 +114,7 @@ export const verifyToken = async (req, res) => {
       role: userFound.role,
       telephone: userFound.telephone,
       age: userFound.age
-  });
+    });
   });
 }
 
@@ -180,10 +179,10 @@ export const updatePassword = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-      const result = await changePassword(username, password);
-      return res.status(200).json(result);
+    const result = await changePassword(username, password);
+    return res.status(200).json(result);
   } catch (error) {
-      return res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -193,8 +192,15 @@ export const createUserByAdmin = async (req, res) => {
   try {
     const { user, token } = await registerUserByAdmin({ name, username, email, password, telephone, age, role });
 
-    res.cookie('token', token);
-    
+    res.cookie('token', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'none',
+      path: '/',
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    });
+
+
     res.status(201).json(user);
   } catch (error) {
     console.log("Error: No se pudo registrar usuario.", error.message);
