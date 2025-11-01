@@ -4,28 +4,23 @@ import mainRouter from "./src/routes/route.main.js";
 import { connectiondb } from "./src/config/dbConnection.js";
 import cookieParser from "cookie-parser";
 import taskRoute from "./src/routes/route.task.js";
-import vigilantRoute from "./src/routes/route.vigilant.js";
 import cors from "cors";
+import vigilantRoute from "./src/routes/route.vigilant.js";
 
 const app = express();
 
 connectiondb();
 
-app.use(
-    cors(
-        {
-            origin: 'https://deploy-vercel-frontendt-is.vercel.app',
-            credentials: true,
-            methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
-            allowedHeaders: ["Content-Type", "Authorization"],
-
-        }));
-app.use(express.json());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
 
-app.get("/", (req, res) => res.status(200).send("Bienvenido a nuestro servidor."));
 app.use("/api", mainRouter);
 app.use("/api", taskRoute);
 app.use("/api", vigilantRoute);
 
-export default app;
+const PORT = process.env.PORT || 1200;
+app.listen(PORT, () => {
+    console.log("El servidor está trabajando en el puerto: " + PORT);
+});
