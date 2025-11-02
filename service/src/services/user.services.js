@@ -3,6 +3,7 @@ import { createAccessToken } from "../libs/jwt.js";
 import User from "../models/user.model.js";
 import {
     createUser,
+    createUserByAdmin,
     findByUsername,
     validatePassword,
     findUserById,
@@ -26,6 +27,32 @@ export const registerUser = async (userData) => {
 
     const passwordHash = await bcrypt.hash(password, 10);
     const userSave = await createUser({ ...userData, password: passwordHash });
+
+    return {
+        user: {
+            id: userSave._id,
+            name: userSave.name,
+            username: userSave.username,
+            email: userSave.email,
+            age: userSave.age,
+            role: userSave.role,
+            createAt: userSave.createdAt,
+            updateAt: userSave.updatedAt
+        }
+    };
+};
+
+export const registerUserByAdmin = async (userData) => {
+    const { username, password } = userData;
+
+    const userFound = await User.findOne({ username });
+
+    if (userFound) {
+        throw new Error("El usuario ya existe");
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const userSave = await createUserByAdmin({ ...userData, password: passwordHash });
 
     return {
         user: {
@@ -69,7 +96,7 @@ export const authUser = async (username, password) => {
             updatedAt: user.updatedAt
         }
     };
-    
+
 };
 
 export const getUserProfile = async (userId) => {
@@ -127,11 +154,9 @@ export const selectUsersNotFilter = async () => {
 
 export const dropUser = async (id) => {
     const user = await deleteUser(id);
-
     if (!user) {
         throw new Error("Usuario no encontrado");
     }
-
     return user;
 };
 

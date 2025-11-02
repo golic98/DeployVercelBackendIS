@@ -6,6 +6,11 @@ export const createUser = async (userData) => {
     return await newUser.save();
 };
 
+export const createUserByAdmin = async (userData) => {
+    const newUser = new User(userData);
+    return await newUser.save();
+};
+
 export const findByUsername = async (username) => {
     return await User.findOne({ username });
 };

@@ -2,6 +2,7 @@ import User from "../models/user.model.js";
 import jwt from "jsonwebtoken";
 import {
   registerUser,
+  registerUserByAdmin,
   authUser,
   getUserProfile,
   selectUsers,
@@ -18,6 +19,17 @@ export const register = async (req, res) => {
 
   try {
     const user = await registerUser({ name, username, email, password, telephone, age, role });
+    res.status(201).json(user);
+  } catch (error) {
+    console.log("Error: No se pudo registrar usuario.", error.message);
+  }
+};
+
+export const createUserByAdmin = async (req, res) => {
+  const { name, username, email, password, telephone, age, role } = req.body;
+
+  try {
+    const user = await registerUserByAdmin({ name, username, email, password, telephone, age, role });
     res.status(201).json(user);
   } catch (error) {
     console.log("Error: No se pudo registrar usuario.", error.message);
@@ -120,7 +132,7 @@ export const deleteOneUser = async (req, res) => {
     console.log(error);
     return res.status(500).json({ message: "Error al eliminar el usuario", error: error.message });
   }
-}
+};
 
 export const getOneProfile = async (req, res) => {
   try {
@@ -156,19 +168,5 @@ export const updatePassword = async (req, res) => {
       return res.status(200).json(result);
   } catch (error) {
       return res.status(400).json({ message: error.message });
-  }
-};
-
-export const createUserByAdmin = async (req, res) => {
-  const { name, username, email, password, telephone, age, role } = req.body;
-
-  try {
-    const { user, token } = await registerUserByAdmin({ name, username, email, password, telephone, age, role });
-
-    res.cookie('token', token);
-    
-    res.status(201).json(user);
-  } catch (error) {
-    console.log("Error: No se pudo registrar usuario.", error.message);
   }
 };

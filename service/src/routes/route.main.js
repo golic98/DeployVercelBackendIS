@@ -3,7 +3,20 @@ import { addPayVigilance, getAllPay } from "../controllers/pay.controllers.js";
 import { authRequired } from "../middlewares/validate.token.js";
 import { validateSchema } from "../middlewares/validate.middleware.js";
 import { registerSchema, loginSchema } from "../schema/auth.schema.js";
-import { register, login, logout, profile, verifyToken, getAllUsers, deleteOneUser, getOneProfile, updateProfile, getAllUser, createUserByAdmin, updatePassword } from "../controllers/user.controllers.js";
+import { 
+    register, 
+    login, 
+    logout, 
+    profile, 
+    verifyToken, 
+    getAllUsers, 
+    deleteOneUser, 
+    getOneProfile, 
+    updateProfile, 
+    getAllUser, 
+    createUserByAdmin, 
+    updatePassword } 
+    from "../controllers/user.controllers.js";
 
 const router = Router();
 
