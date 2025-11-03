@@ -49,6 +49,8 @@ export const login = async (req, res) => {
       username: user.username,
       email: user.email,
       role: user.role,
+      age: user.age,
+      telephone: user.telephone,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt
     });
@@ -72,6 +74,8 @@ export const profile = async (req, res) => {
       id: user._id,
       username: user.username,
       email: user.email,
+      age: user.age,
+      telephone: user.telephone,
       createAt: user.createdAt,
       updateAt: user.updatedAt,
     });
