@@ -36,7 +36,7 @@ export const registerUser = async (userData) => {
             email: userSave.email,
             age: userSave.age,
             role: userSave.role,
-            telephone: user.telephone,
+            telephone: userSave.telephone,
             createAt: userSave.createdAt,
             updateAt: userSave.updatedAt
         }
@@ -63,7 +63,7 @@ export const registerUserByAdmin = async (userData) => {
             email: userSave.email,
             age: userSave.age,
             role: userSave.role,
-            telephone: user.telephone,
+            telephone: userSave.telephone,
             createAt: userSave.createdAt,
             updateAt: userSave.updatedAt
         }
