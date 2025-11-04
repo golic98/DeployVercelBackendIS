@@ -173,6 +173,11 @@ export const selectUserProfile = async (id) => {
 };
 
 export const updateUserProfile = async (id, updateData) => {
+    if (updateData.password) {
+        const salt = await bcrypt.genSalt(10);
+        updateData.password = await bcrypt.hash(updateData.password, salt);
+    }
+    
     const updateProfile = await updateUserById(id, updateData);
 
     if (!updateProfile) {
