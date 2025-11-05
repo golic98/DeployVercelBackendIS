@@ -23,3 +23,5 @@ app.use("/api", vigilantRoute);
 app.get("/", (req, res) => {
   res.json({ message: "Bienvenidos al servidor DDG 🚀" });
 });
+
+export default app;
