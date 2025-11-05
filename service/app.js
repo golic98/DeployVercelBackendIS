@@ -19,3 +19,6 @@ app.use(cookieParser());
 app.use("/api", mainRouter);
 app.use("/api", taskRoute);
 app.use("/api", vigilantRoute);
+app.get("/", (req, res) => {
+  res.json({ message: "Bienvenidos al servidor DDG 🚀" });
+});
