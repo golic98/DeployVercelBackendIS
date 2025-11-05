@@ -19,8 +19,3 @@ app.use(cookieParser());
 app.use("/api", mainRouter);
 app.use("/api", taskRoute);
 app.use("/api", vigilantRoute);
-
-const PORT = process.env.PORT || 1200;
-app.listen(PORT, () => {
-    console.log("El servidor está trabajando en el puerto: " + PORT);
-});
