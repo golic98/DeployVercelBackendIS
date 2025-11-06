@@ -8,10 +8,11 @@ import cors from "cors";
 import vigilantRoute from "./src/routes/route.vigilant.js";
 
 const app = express();
+const FRONTEND = process.env.SERVICE_URL;
 
 connectiondb();
 
-app.use(cors({ origin: process.env.SERVICE_URL, credentials: true }));
+app.use(cors({ origin: FRONTEND, credentials: true }));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
