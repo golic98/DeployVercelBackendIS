@@ -43,8 +43,9 @@ export const login = async (req, res) => {
     const { token, user } = await authUser(username, password);
 
     res.cookie('token', token, {
-      secure: true,
-      sameSite: "none"
+      secure: true,        
+      sameSite: "none",    
+      path: "/",
     });
     res.json({
       id: user.id,
@@ -106,7 +107,7 @@ export const verifyToken = async (req, res) => {
       role: userFound.role,
       telephone: userFound.telephone,
       age: userFound.age
-  });
+    });
   });
 }
 
@@ -171,9 +172,9 @@ export const updatePassword = async (req, res) => {
   const { username, password } = req.body;
 
   try {
-      const result = await changePassword(username, password);
-      return res.status(200).json(result);
+    const result = await changePassword(username, password);
+    return res.status(200).json(result);
   } catch (error) {
-      return res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
