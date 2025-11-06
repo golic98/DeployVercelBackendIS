@@ -42,7 +42,10 @@ export const login = async (req, res) => {
   try {
     const { token, user } = await authUser(username, password);
 
-    res.cookie('token', token);
+    res.cookie('token', token, {
+      secure: true,
+      sameSite: "none"
+    });
     res.json({
       id: user.id,
       name: user.name,
