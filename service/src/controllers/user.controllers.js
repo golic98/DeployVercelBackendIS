@@ -44,10 +44,11 @@ export const login = async (req, res) => {
 
     res.cookie('token', token, {
       httpOnly: true,
-      secure: true,        
-      sameSite: "none",    
-      path: "/",
+      secure: process.env.NODE_ENV === 'production', 
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+      path: '/',
     });
+
     res.json({
       id: user.id,
       name: user.name,
