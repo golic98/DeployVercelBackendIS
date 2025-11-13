@@ -42,7 +42,12 @@ export const login = async (req, res) => {
   try {
     const { token, user } = await authUser(username, password);
 
-    res.cookie('token', token);
+    res.cookie('token', token, { 
+        httpOnly: true, 
+        secure: process.env.NODE_ENV === 'production', 
+        sameSite: 'strict'
+    });
+
     res.json({
       id: user.id,
       name: user.name,
