@@ -41,7 +41,7 @@ export const login = async (req, res) => {
 
   try {
     const { token, user } = await authUser(username, password);
-
+    console.log("TOKEN desde authUser:", token);
     res.cookie("token", token, {
       httpOnly: true,
       secure: true,
