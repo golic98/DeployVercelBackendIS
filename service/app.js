@@ -10,7 +10,12 @@ const app = express();
 
 connectiondb();
 
-app.use(cors({ origin: "https://deploy-vercel-frontendt-is.vercel.app", credentials: true }));
+app.use(cors({
+  origin: "https://deploy-vercel-frontendt-is.vercel.app",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
