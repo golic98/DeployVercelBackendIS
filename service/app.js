@@ -7,6 +7,8 @@ import cors from "cors";
 import vigilantRoute from "./src/routes/route.vigilant.js";
 
 const app = express();
+app.set("trust proxy", 1);
+
 
 connectiondb();
 
