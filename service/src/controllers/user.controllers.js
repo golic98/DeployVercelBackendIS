@@ -41,25 +41,26 @@ export const login = async (req, res) => {
 
   try {
     const { token, user } = await authUser(username, password);
-    console.log("TOKEN desde authUser:", token);
     res.cookie("token", token, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       sameSite: "none",
       path: "/",
       maxAge: 1000 * 60 * 60 * 24
     });
 
     res.json({
-      id: user.id,
-      name: user.name,
-      username: user.username,
-      email: user.email,
-      role: user.role,
-      age: user.age,
-      telephone: user.telephone,
-      createdAt: user.createdAt,
-      updatedAt: user.updatedAt
+      user: {
+        id: user.id,
+        name: user.name,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        age: user.age,
+        telephone: user.telephone,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt
+      }
     });
   } catch (error) {
     console.error('Error en login:', error.response?.data || error.message);
@@ -67,11 +68,15 @@ export const login = async (req, res) => {
 };
 
 export const logout = (req, res) => {
-  res.clearCookie("token", "", {
-    expires: new Date(0)
-  })
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "none",
+    path: "/"
+  });
   return res.sendStatus(200);
 };
+
 
 export const profile = async (req, res) => {
   try {
