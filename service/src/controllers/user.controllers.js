@@ -42,7 +42,14 @@ export const login = async (req, res) => {
   try {
     const { token, user } = await authUser(username, password);
 
-    res.cookie("token", token);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/",
+      maxAge: 1000 * 60 * 60 * 24
+    });
+
     res.json({
       id: user.id,
       name: user.name,
