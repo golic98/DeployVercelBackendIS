@@ -7,8 +7,6 @@ import cors from "cors";
 import vigilantRoute from "./src/routes/route.vigilant.js";
 
 const app = express();
-app.set("trust proxy", 1);
-
 
 connectiondb();
 
@@ -18,11 +16,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
 }));
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
-app.options("*", cors());
+
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(cookieParser());
